@@ -15,16 +15,16 @@ pub fn part_one(input: &str) -> Option<u64> {
         while col < lines[0].len() {
             if lines[row][col].is_digit(10) {
                 let is_valid_number = valid_num(&lines, row, col);
-                if (is_valid_number) {
+                if is_valid_number {
                     let mut left = col;
                     let mut right = col;
-                    while ((left > 0) && lines[row][left].is_digit(10)) {
+                    while (left > 0) && lines[row][left].is_digit(10) {
                         left = left - 1;
                     }
-                    while ((right < lines[row].len()) && lines[row][right].is_digit(10)) {
+                    while (right < lines[row].len()) && lines[row][right].is_digit(10) {
                         right += 1
                     }
-                    if (left == 0 && lines[row][left].is_digit(10)) {
+                    if left == 0 && lines[row][left].is_digit(10) {
                         left = 0;
                     } else {
                         left = left + 1;
@@ -130,13 +130,13 @@ pub fn part_two(input: &str) -> Option<u64> {
 pub fn parse_num_from_any_position_mat(lines: &Vec<Vec<char>>, row: usize, col: usize) -> u64 {
     let mut left = col;
     let mut right = col;
-    while ((left > 0) && lines[row][left].is_digit(10)) {
+    while (left > 0) && lines[row][left].is_digit(10) {
         left = left - 1;
     }
-    while ((right < lines[row].len()) && lines[row][right].is_digit(10)) {
+    while (right < lines[row].len()) && lines[row][right].is_digit(10) {
         right += 1
     }
-    if (left == 0 && lines[row][left].is_digit(10)) {
+    if left == 0 && lines[row][left].is_digit(10) {
         left = 0;
     } else {
         left = left + 1;
@@ -161,7 +161,7 @@ pub fn dfs_on_mat(lines: &Vec<Vec<char>>, row: usize, col: usize) -> (bool, u64,
     //left check
     if col > 0 && lines[row][col - 1].is_digit(10) {
         part_count += 1;
-        if (part_count == 1) {
+        if part_count == 1 {
             num1 = parse_num_from_any_position_mat(lines, row, col - 1);
         } else if part_count == 2 {
             num2 = parse_num_from_any_position_mat(lines, row, col - 1);
@@ -170,7 +170,7 @@ pub fn dfs_on_mat(lines: &Vec<Vec<char>>, row: usize, col: usize) -> (bool, u64,
     //right
     if col < lines[0].len() - 1 && lines[row][col + 1].is_digit(10) {
         part_count += 1;
-        if (part_count == 1) {
+        if part_count == 1 {
             num1 = parse_num_from_any_position_mat(lines, row, col + 1);
         } else if part_count == 2 {
             num2 = parse_num_from_any_position_mat(lines, row, col + 1);
@@ -181,7 +181,7 @@ pub fn dfs_on_mat(lines: &Vec<Vec<char>>, row: usize, col: usize) -> (bool, u64,
     if row > 0 && lines[row - 1][col].is_digit(10) {
         part_count += 1;
         up_taken = true;
-        if (part_count == 1) {
+        if part_count == 1 {
             num1 = parse_num_from_any_position_mat(lines, row - 1, col);
         } else if part_count == 2 {
             num2 = parse_num_from_any_position_mat(lines, row - 1, col);
@@ -195,7 +195,7 @@ pub fn dfs_on_mat(lines: &Vec<Vec<char>>, row: usize, col: usize) -> (bool, u64,
     if (row < lines.len() - 1) && lines[row + 1][col].is_digit(10) {
         part_count += 1;
         down_taken = true;
-        if (part_count == 1) {
+        if part_count == 1 {
             num1 = parse_num_from_any_position_mat(lines, row + 1, col);
         } else if part_count == 2 {
             num2 = parse_num_from_any_position_mat(lines, row + 1, col);
@@ -206,7 +206,7 @@ pub fn dfs_on_mat(lines: &Vec<Vec<char>>, row: usize, col: usize) -> (bool, u64,
     //upper-left check
     if !up_taken && (row > 0) & (col > 0) && lines[row - 1][col - 1].is_digit(10) {
         part_count += 1;
-        if (part_count == 1) {
+        if part_count == 1 {
             num1 = parse_num_from_any_position_mat(lines, row - 1, col - 1);
         } else if part_count == 2 {
             num2 = parse_num_from_any_position_mat(lines, row - 1, col - 1);
@@ -217,7 +217,7 @@ pub fn dfs_on_mat(lines: &Vec<Vec<char>>, row: usize, col: usize) -> (bool, u64,
     //upper-right check
     if !up_taken && (row > 0) & (col < lines[0].len() - 1) && lines[row - 1][col + 1].is_digit(10) {
         part_count += 1;
-        if (part_count == 1) {
+        if part_count == 1 {
             num1 = parse_num_from_any_position_mat(lines, row - 1, col + 1);
         } else if part_count == 2 {
             num2 = parse_num_from_any_position_mat(lines, row - 1, col + 1);
@@ -226,7 +226,7 @@ pub fn dfs_on_mat(lines: &Vec<Vec<char>>, row: usize, col: usize) -> (bool, u64,
     //lowerleft check
     if !down_taken && (col > 0) & (row < lines.len() - 1) && lines[row + 1][col - 1].is_digit(10) {
         part_count += 1;
-        if (part_count == 1) {
+        if part_count == 1 {
             num1 = parse_num_from_any_position_mat(lines, row + 1, col - 1);
         } else if part_count == 2 {
             num2 = parse_num_from_any_position_mat(lines, row + 1, col - 1);
@@ -238,7 +238,7 @@ pub fn dfs_on_mat(lines: &Vec<Vec<char>>, row: usize, col: usize) -> (bool, u64,
         && lines[row + 1][col + 1].is_digit(10)
     {
         part_count += 1;
-        if (part_count == 1) {
+        if part_count == 1 {
             num1 = parse_num_from_any_position_mat(lines, row + 1, col + 1);
         } else if part_count == 2 {
             num2 = parse_num_from_any_position_mat(lines, row + 1, col + 1);
@@ -246,7 +246,7 @@ pub fn dfs_on_mat(lines: &Vec<Vec<char>>, row: usize, col: usize) -> (bool, u64,
     }
 
     // println!("{part_count}, {num1}, {num2}");
-    if (part_count != 2) {
+    if part_count != 2 {
         (false, num1, num2)
     } else {
         (true, num1, num2)
@@ -259,7 +259,7 @@ pub fn gear_ratio(mat: Vec<Vec<char>>) -> u64 {
     let mut gear_rat: u64 = 0;
     for i in 0..rows {
         for j in 0..cols {
-            if (mat[i][j] == '*') {
+            if mat[i][j] == '*' {
                 let (gr, g1, g2) = dfs_on_mat(&mat, i, j);
                 if gr {
                     gear_rat += g1 * g2;
